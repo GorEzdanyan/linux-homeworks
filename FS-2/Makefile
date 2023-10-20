@@ -5,7 +5,7 @@ COBJECT = -c
 all: main clean
 
 main: main.o
-	g++ main.o
+	$(CC) main.o
 
 main.o:
 	$(CC) $(COBJECT) FS-2.cpp $(COUTPUT) main.o
