@@ -4,6 +4,7 @@ COBJECT = -c
 
 all: main clean
 
+
 main: main.o
 	$(CC) main.o
 
