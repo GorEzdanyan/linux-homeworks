@@ -17,7 +17,7 @@ int main(int argc,char** argv)
 	char *path1 = argv[1];
 	char *path2 = argv[2];
 	int f1 = open(path1, O_RDONLY);
-	int f2 = open(path2, O_WRONLY);
+	int f2 = open(path2, O_WRONLY | O_CREAT | O_TRUNC);
 	if(f1 < 0 || f2 < 0)
 	{
 		std::cerr << "Error code " << errno << ": " << strerror(errno) << std::endl;
