@@ -44,7 +44,7 @@ int main(int argc,char** argv)
 		exit(errno);
 	}
 
-	delete buffer;
+	delete[] buffer;
 	return 0;
 }
 
