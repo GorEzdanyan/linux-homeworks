@@ -29,6 +29,7 @@ int main(int argc,char** argv)
 		if(rbytes < 0)
 		{
 			std::cerr << strerror(errno) << std::endl;
+			exit(errno);
 		}
 		buffer[rbytes] = '\0';
 		std::cout << buffer;

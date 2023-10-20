@@ -31,16 +31,23 @@ int main(int argc,char** argv)
 		if(rbytes < 0)
 		{
 			std::cerr << strerror(errno) << std::endl;
+			exit(errno);
 		}
 		buffer[rbytes] = '\0';
-		write(f2,buffer,rbytes);
+		
+		int writing_code = write(f2,buffer,rbytes);
+		if(writing_code < 0)
+		{
+			std::cerr << strerror(errno) << std::endl;
+			exit(errno);
+		}
 		rbytes = read(f1,buffer,20);
 	}
 	int closing_code1 = close(f1);
 	int closing_code2 = close(f2);
 	if(closing_code1 < 0 || closing_code2 < 0)
 	{
-		std::cerr << errno << strerror(errno) << std::endl;
+		std::cerr << "Error code " << errno << ": " << strerror(errno) << std::endl;
 		exit(errno);
 	}
 
