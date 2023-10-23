@@ -27,8 +27,8 @@ int main(int argc,char** argv)
 		std::cerr << "Error code " << errno << ": " << strerror(errno) << std::endl;
 		exit(errno);
 	}
-	write(f,"First Line\n",12);
-	write(dup_f, "Second Line\n",13);
+	write(f,"First Line\n",11);
+	write(dup_f, "Second Line\n",12);
 	int closing_code = close(f);
 	if(closing_code < 0)
 	{
