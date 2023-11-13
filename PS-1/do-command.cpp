@@ -37,7 +37,7 @@ void do_command(char** argv)
 		}
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-		std::cout << "Executed in " << duration.count() << " microseconds" << std::endl;
+		std::cout << "Executed in " << (double)duration.count()/1000000 << " seconds" << std::endl;
 		if(WIFEXITED(exit_status))
 		{
 			std::cout << "Exit status " << WEXITSTATUS(exit_status) << std::endl;
