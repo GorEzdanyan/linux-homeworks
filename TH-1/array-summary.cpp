@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <string.h>
 #include <chrono>
+
 struct local_sum_arg
 {
     int* array;
@@ -83,10 +84,12 @@ int main(int argc, char **argv)
     }
     end = std::chrono::system_clock::now();
     auto thread_spent = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    
     delete[] array_of_args;
     delete[] array;
 
     std::cout << "Time spent without threads: "<< regular_spent.count() / 1000.0 << std::endl;
     std::cout << "Time spent with " << threads_count << " threads: " << thread_spent.count() / 1000.0 <<std::endl;
+    
     return 0;
 }
