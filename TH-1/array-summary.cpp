@@ -32,10 +32,10 @@ int main(int argc, char **argv)
         return -1; 
     }
 
-    int size = std::stoi(argv[1]);
-    int threads_count = std::stoi(argv[2]);
-    int* array = new int[size];
-    for(int i = 0; i < size; ++i)
+    int N = std::stoi(argv[1]);
+    int M = std::stoi(argv[2]);
+    int* array = new int[N];
+    for(int i = 0; i < N; ++i)
     {
         array[i] = 3 * i;
     }
@@ -43,22 +43,22 @@ int main(int argc, char **argv)
     int regular_sum = 0, thread_sum = 0;
     
     auto start = std::chrono::system_clock::now();
-    for(int i = 0; i < size; ++i)
+    for(int i = 0; i < N; ++i)
     {
         regular_sum += array[i];
     }
     auto end = std::chrono::system_clock::now();
-    auto regular_spent = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    auto spent_without_threads = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     
     start = std::chrono::system_clock::now();
-    pthread_t* threads = new pthread_t[threads_count];
-    local_sum_arg** array_of_args = new local_sum_arg*[threads_count];
-    for(int i = 0; i < threads_count; ++i)
+    pthread_t* threads = new pthread_t[M];
+    local_sum_arg** array_of_args = new local_sum_arg*[M];
+    for(int i = 0; i < M; ++i)
     {
         array_of_args[i] = new local_sum_arg;
         array_of_args[i]->array = array;
-        array_of_args[i]->start = i * (size / threads_count);
-        array_of_args[i]->end = std::min(array_of_args[i]->start + (size / threads_count), size);
+        array_of_args[i]->start = i * (N / M);
+        array_of_args[i]->end = std::min(array_of_args[i]->start + (N / M), N);
         int result = pthread_create(&threads[i], NULL, local_sum, array_of_args[i]);
         if(result != 0)
         {
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
     }
 
 
-    for(int i = 0; i < threads_count; ++i)
+    for(int i = 0; i < M; ++i)
     {
         void* return_value;
         int result = pthread_join(threads[i], &return_value);
@@ -83,13 +83,13 @@ int main(int argc, char **argv)
         delete array_of_args[i];
     }
     end = std::chrono::system_clock::now();
-    auto thread_spent = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    auto spent_with_threads = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     
     delete[] array_of_args;
     delete[] array;
 
-    std::cout << "Time spent without threads: "<< regular_spent.count() / 1000.0 << std::endl;
-    std::cout << "Time spent with " << threads_count << " threads: " << thread_spent.count() / 1000.0 <<std::endl;
+    std::cout << "Time spent without threads: "<< spent_without_threads.count() / 1000000.0 << std::endl;
+    std::cout << "Time spent with " << M << " threads: " << spent_with_threads.count() / 1000000.0 <<std::endl;
     
     return 0;
 }

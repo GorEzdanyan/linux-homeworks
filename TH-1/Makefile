@@ -2,14 +2,14 @@ CC = g++
 COUTPUT = -o
 COBJECT = -c
 
-all: main clean
+all: array-summary clean
 
 
-main: main.o
-	$(CC) main.o $(COUTPUT) array-summary
+array-summary: array-summary.o
+	$(CC) array-summary.o $(COUTPUT) array-summary
 
-main.o:
-	$(CC) $(COBJECT) array-summary.cpp $(COUTPUT) main.o
+array-summary.o:
+	$(CC) $(COBJECT) array-summary.cpp -pthread $(COUTPUT) array-summary.o
 
 clean:
 	rm -f *.o
