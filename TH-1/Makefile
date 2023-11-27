@@ -6,10 +6,10 @@ all: array-summary clean
 
 
 array-summary: array-summary.o
-	$(CC) array-summary.o $(COUTPUT) array-summary
+	$(CC) array-summary.o -pthread $(COUTPUT) array-summary
 
 array-summary.o:
-	$(CC) $(COBJECT) array-summary.cpp -pthread $(COUTPUT) array-summary.o
+	$(CC) $(COBJECT) array-summary.cpp  $(COUTPUT) array-summary.o
 
 clean:
 	rm -f *.o
