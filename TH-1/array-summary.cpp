@@ -89,7 +89,7 @@ int main(int argc, char **argv)
     delete[] array;
 
     std::cout << "Time spent without threads: "<< spent_without_threads.count() / 1000000.0 << std::endl;
-    std::cout << "Time spent with " << M << " threads: " << spent_with_threads.count() / 1000000.0 <<std::endl;
+    std::cout << "Time spent with " << M << " threads: " << spent_with_threads.count() / 1000000.0 << std::endl;
     
     return 0;
 }
