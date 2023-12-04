@@ -5,7 +5,6 @@
 
 parallel_scheduler::parallel_scheduler(int capacity) : capacity(capacity)
 {
-
 	pthread_mutex_init(mutex, nullptr);
 	create_threads();
 }
