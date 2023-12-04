@@ -50,7 +50,6 @@ void* parallel_scheduler::execute(void* arg)
 
 parallel_scheduler::~parallel_scheduler()
 {
-
 	for(int i = 0; i < threads.size(); ++i)
 	{
 		pthread_join(threads[i], nullptr);
